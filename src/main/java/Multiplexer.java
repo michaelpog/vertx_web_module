@@ -13,14 +13,14 @@ public class Multiplexer extends AbstractVerticle{
     public void start() throws Exception {
         HttpServer server = getVertx().createHttpServer();
         Router router = Router.router(getVertx());
-        router.route("/hello").handler(this::handleBidsRequest);
+        router.route("/hello").handler(this::handleHelloRequest);
         router.route("/application.properties").handler(this::handleApplicationProperties);
 
         server.requestHandler(router::accept).listen(8080);
 
     }
 
-    private void handleBidsRequest(RoutingContext routingContext){
+    private void handleHelloRequest(RoutingContext routingContext){
         if(routingContext.request().method()== HttpMethod.GET ||
                 routingContext.request().method()== HttpMethod.POST ){
             System.out.println("Got request on thread :"+Thread.currentThread().getName());
